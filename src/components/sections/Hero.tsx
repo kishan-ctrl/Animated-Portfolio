@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import App from "@/components/band/App";
 import TextType from "@/components/band/TextType";
 
-const skills = ["Typescript", "React.js", "Tailwind"];
+const skills = ["Java Scripts", "React.js", "Tailwind","Python", "Java", "Spring Boot","MongoDB", "MySQL","React Vue","Node.js","Docker","Git","POSTMAN"];
 
 type HeroProps = {
   showApp: boolean;
@@ -41,9 +41,8 @@ export default function Hero({ showApp }: HeroProps) {
   return (
     <section
       id="home"
-      className="px-6 md:pl-[120px] md:pr-[60px]"
+      className="px-4 pt-28 pb-20 min-h-[100svh] sm:px-6 md:pl-[120px] md:pr-[60px] md:pt-24 md:pb-16"
       style={{
-        minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start",
@@ -65,7 +64,7 @@ export default function Hero({ showApp }: HeroProps) {
 
       {/* TEXT */}
       <div
-        className="md:max-w-[600px]"
+        className="max-w-full md:max-w-[600px]"
         style={{
           width: "100%",
           position: "relative",
@@ -86,9 +85,9 @@ export default function Hero({ showApp }: HeroProps) {
           <span
             style={{
               fontFamily: "'DM Mono', monospace",
-              fontSize: 12,
+              fontSize: "clamp(10px, 3.2vw, 12px)",
               color: "var(--text-muted)",
-              letterSpacing: "0.2em",
+              letterSpacing: "0.16em",
               textTransform: "uppercase",
             }}
           >
@@ -110,15 +109,16 @@ export default function Hero({ showApp }: HeroProps) {
               ease: [0.22, 1, 0.36, 1],
             }}
             style={{
-              fontSize: "clamp(32px, 6vw, 62px)",
+              fontSize: "clamp(34px, 13vw, 62px)",
               fontWeight: 800,
               lineHeight: 1.05,
               color: "var(--text-primary)",
-              letterSpacing: "-0.03em",
+              letterSpacing: 0,
               marginBottom: 0,
+              overflowWrap: "anywhere",
             }}
           >
-            Frontend
+            Full‑Stack 
           </motion.h1>
 
           <motion.h1
@@ -134,12 +134,13 @@ export default function Hero({ showApp }: HeroProps) {
               ease: [0.22, 1, 0.36, 1],
             }}
             style={{
-              fontSize: "clamp(32px, 6vw, 62px)",
+              fontSize: "clamp(34px, 13vw, 62px)",
               fontWeight: 800,
               lineHeight: 1.05,
               color: "var(--text-secondary)",
-              letterSpacing: "-0.03em",
+              letterSpacing: 0,
               marginBottom: 24,
+              overflowWrap: "anywhere",
             }}
           >
             Developer
@@ -156,9 +157,9 @@ export default function Hero({ showApp }: HeroProps) {
           <span
             style={{
               fontFamily: "'DM Mono', monospace",
-              fontSize: 15,
+              fontSize: "clamp(12px, 3.8vw, 15px)",
               color: "var(--text-secondary)",
-              letterSpacing: "0.1em",
+              letterSpacing: "0.08em",
             }}
           >
             <TextType
@@ -185,7 +186,7 @@ export default function Hero({ showApp }: HeroProps) {
           style={{
             marginBottom: 28,
             width: "100%",
-            maxWidth: 460, // batas lebar biar jadi 3 baris
+            maxWidth: 460,
           }}
         >
           <p
@@ -195,11 +196,10 @@ export default function Hero({ showApp }: HeroProps) {
               lineHeight: 1.9,
               letterSpacing: "0.01em",
               textWrap: "pretty",
+              overflowWrap: "break-word",
             }}
           >
-            Menciptakan website modern dengan tampilan clean, responsif, dan
-            elegan. Mengubah ide dan desain menjadi pengalaman digital yang
-            menarik dan mudah digunakan.
+            Creating modern websites with a clean, responsive, and elegant appearance. Transforming ideas and designs into engaging, easy-to-use digital experiences.
           </p>
         </motion.div>
 
@@ -239,6 +239,8 @@ export default function Hero({ showApp }: HeroProps) {
                 borderRadius: 999,
                 padding: "5px 12px",
                 backgroundColor: "var(--bg-card)",
+                maxWidth: "100%",
+                overflowWrap: "break-word",
               }}
             >
               {skill}
@@ -260,8 +262,9 @@ export default function Hero({ showApp }: HeroProps) {
           <span
             style={{
               fontFamily: "'DM Mono', monospace",
-              fontSize: 13,
+              fontSize: "clamp(11px, 3.4vw, 13px)",
               color: "var(--text-muted)",
+              overflowWrap: "break-word",
             }}
           >
             ↓ explore my work below
@@ -270,8 +273,9 @@ export default function Hero({ showApp }: HeroProps) {
           <span
             style={{
               fontFamily: "'DM Mono', monospace",
-              fontSize: 13,
+              fontSize: "clamp(11px, 3.4vw, 13px)",
               color: "var(--text-muted)",
+              overflowWrap: "break-word",
             }}
           >
             ↗ open to full-time & freelance opportunities
@@ -279,24 +283,6 @@ export default function Hero({ showApp }: HeroProps) {
         </motion.div>
       </div>
       {/* SCROLL INDICATOR */}
-      <motion.div
-        initial={false}
-        animate={startAnim ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-        transition={{
-          duration: 0.9,
-          delay: 1.2,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        style={{
-          position: "absolute",
-          bottom: 38,
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 20,
-          pointerEvents: "none",
-        }}
-      >
-        {/* SCROLL INDICATOR */}
 <motion.div
   initial={false}
   animate={
@@ -309,7 +295,7 @@ export default function Hero({ showApp }: HeroProps) {
     delay: 1.2,
     ease: [0.22, 1, 0.36, 1],
   }}
-  className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 pointer-events-none w-full flex justify-center"
+  className="absolute bottom-4 left-0 right-0 z-20 pointer-events-none flex justify-center px-4"
 >
   <motion.div
     animate={{
@@ -330,6 +316,7 @@ export default function Hero({ showApp }: HeroProps) {
         letterSpacing: '0.2em',
         textTransform: 'uppercase',
         color: 'var(--text-muted)',
+        whiteSpace: 'nowrap',
       }}
     >
       Scroll
@@ -346,7 +333,6 @@ export default function Hero({ showApp }: HeroProps) {
     </span>
   </motion.div>
 </motion.div>
-      </motion.div>
     </section>
   );
 }

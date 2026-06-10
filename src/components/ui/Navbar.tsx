@@ -17,7 +17,13 @@ export default function Navbar() {
     setMounted(true)
 
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
+      const mobile = window.innerWidth < 768
+
+      setIsMobile(mobile)
+
+      if (!mobile) {
+        setOpen(false)
+      }
     }
 
     const handleScroll = () => {
@@ -135,9 +141,9 @@ export default function Navbar() {
       }}
       style={{
         position: 'fixed',
-        top: 20,
-        left: isMobile ? 20 : 60,
-        right: isMobile ? 20 : 60,
+        top: isMobile ? 12 : 20,
+        left: isMobile ? 12 : 60,
+        right: isMobile ? 12 : 60,
         zIndex: 50,
       }}
     >
@@ -146,7 +152,8 @@ export default function Navbar() {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '10px 30px',
+          gap: 12,
+          padding: isMobile ? '8px 12px 8px 16px' : '10px 30px',
           width: '100%',
           borderRadius: 999,
           backgroundColor: scrolled
@@ -159,12 +166,16 @@ export default function Navbar() {
         <span
           style={{
             fontFamily: "'DM Mono', monospace",
-            fontSize: 13,
+            fontSize: isMobile ? 12 : 13,
             color: 'var(--text-secondary)',
             letterSpacing: '0.1em',
+            minWidth: 0,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
           }}
         >
-          rifqi.dev
+          kishan-ctrl.dev
         </span>
 
         {!isMobile && (
@@ -215,19 +226,30 @@ export default function Navbar() {
         )}
 
         {isMobile && (
-          <div
+          <button
+            type="button"
+            aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={open}
             onClick={() => setOpen(!open)}
             style={{
               display: 'flex',
               flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
               gap: 4,
               cursor: 'pointer',
+              width: 44,
+              height: 44,
+              flexShrink: 0,
+              border: 0,
+              borderRadius: 999,
+              background: 'transparent',
             }}
           >
             <span style={{ width: 20, height: 2, background: 'white' }} />
             <span style={{ width: 20, height: 2, background: 'white' }} />
             <span style={{ width: 20, height: 2, background: 'white' }} />
-          </div>
+          </button>
         )}
       </div>
 
@@ -246,6 +268,8 @@ export default function Navbar() {
             display: 'flex',
             flexDirection: 'column',
             gap: 18,
+            maxHeight: 'calc(100svh - 88px)',
+            overflowY: 'auto',
           }}
         >
           {navItems.map((item) => {
@@ -262,6 +286,8 @@ export default function Navbar() {
                   color: isActive
                     ? 'var(--text-primary)'
                     : 'var(--text-secondary)',
+                  padding: '12px 4px',
+                  textDecoration: 'none',
                 }}
               >
                 {item.label}

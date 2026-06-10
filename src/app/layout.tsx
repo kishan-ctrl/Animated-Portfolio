@@ -2,7 +2,7 @@ import "./globals.css";
 import RefreshRedirect from '@/components/RefreshRedirect'
 
 export const metadata = {
-  title: "Rifqi Muhammad Aliya",
+  title: "Balakrishnan Krishanth",
   description: "Portfolio...",
 };
 

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '@/lib/supabase'
+import { normalizeImageUrl } from '@/lib/imageUrl'
 import {
   ArrowLeft,
   ChevronLeft,
@@ -62,12 +63,15 @@ export default function PortfolioDetailPage() {
     .split(',')
     .filter((f: string) => f.trim() !== '')
 
-  const galleryImages =
+  const galleryImages = (
     project?.image_urls && Array.isArray(project.image_urls)
       ? project.image_urls
       : project?.image_url
       ? [project.image_url]
       : []
+  )
+    .map(normalizeImageUrl)
+    .filter(Boolean)
 
   const nextImage = () => {
     if (currentImage < galleryImages.length - 1) {
@@ -126,6 +130,7 @@ export default function PortfolioDetailPage() {
                 ease: [0.22, 1, 0.36, 1],
               }}
               src={galleryImages[currentImage]}
+              alt={project.title}
               className="max-w-[85vw] max-h-[80vh] rounded-3xl object-contain"
             />
 
@@ -376,6 +381,7 @@ export default function PortfolioDetailPage() {
                       ease: [0.22, 1, 0.36, 1],
                     }}
                     src={galleryImages[currentImage]}
+                    alt={project.title}
                     onClick={() => setPreviewOpen(true)}
                     className="w-full h-[220px] md:h-[250px] object-cover cursor-pointer"
                   />

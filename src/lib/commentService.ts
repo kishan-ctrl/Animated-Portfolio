@@ -30,20 +30,25 @@ export const likeCommentService = async (
 
 export const uploadCommentImageService = async (
   image: File
-) => {
-  const fileName = `${Date.now()}-${image.name}`
+): Promise<string | null> => {
+  const formData = new FormData()
+  formData.append('file', image)
 
-  const { error } = await supabase.storage
-    .from('comments')
-    .upload(fileName, image)
+  const response = await fetch('/api/comments/upload', {
+    method: 'POST',
+    body: formData,
+  })
 
-  if (error) throw error
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(error.error || 'Upload failed')
+  }
 
-  const { data } = supabase.storage
-    .from('comments')
-    .getPublicUrl(fileName)
+  const { url } = await response.json()
 
-  return data.publicUrl
+  return typeof url === 'string' && url.trim()
+    ? url
+    : null
 }
 
 export const createCommentService = async ({

@@ -69,7 +69,7 @@ useEffect(() => {
 }, [])
 
   return (
-    <main style={{ position: 'relative', overflow: 'hidden' }}>
+    <main style={{ position: 'relative', overflowX: 'hidden' }}>
       <AnimatedBackground />
 
       <div style={{ position: 'relative', zIndex: 2 }}>

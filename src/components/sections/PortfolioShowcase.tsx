@@ -82,7 +82,7 @@ export default function PortfolioShowcase() {
 
       <section
         id="portfolio"
-        className="w-full max-w-[1450px] mx-auto px-8 md:px-12 lg:px-20 pt-24 pb-24 text-white"
+        className="w-full max-w-[1450px] mx-auto px-4 sm:px-6 md:px-12 lg:px-20 pt-20 sm:pt-24 pb-20 sm:pb-24 text-white overflow-x-hidden"
       >
         {/* HEADER */}
         <motion.div
@@ -91,7 +91,7 @@ export default function PortfolioShowcase() {
           transition={{ duration: 0.9 }}
           className="text-center mb-8"
         >
-          <h1 className="text-3xl md:text-5xl font-bold mb-3">
+          <h1 className="text-[30px] min-[375px]:text-3xl md:text-5xl font-bold mb-3 leading-tight">
             Portfolio Showcase
           </h1>
 
@@ -103,7 +103,7 @@ export default function PortfolioShowcase() {
 
         {/* TAB */}
         <div className="flex justify-center mb-10">
-          <div className="w-full max-w-3xl rounded-full border border-white/10 bg-white/5 p-2 flex gap-2 backdrop-blur-xl">
+          <div className="w-full max-w-3xl rounded-[24px] sm:rounded-full border border-white/10 bg-white/5 p-2 flex gap-1.5 sm:gap-2 backdrop-blur-xl">
             {[
               'projects',
               'certificates',
@@ -153,7 +153,7 @@ export default function PortfolioShowcase() {
                       ease: smoothEase,
                     },
                   }}
-                  className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 px-1"
+                  className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6"
                 >
                   <AnimatePresence mode="popLayout">
                     {!loading &&
@@ -274,7 +274,7 @@ export default function PortfolioShowcase() {
 
             {/* CERTIFICATES */}
             {activeTab === 'certificates' && (
-              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 px-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
                 {!loading &&
                   certificates.map((item, i) => (
                     <motion.div
@@ -300,11 +300,12 @@ export default function PortfolioShowcase() {
                         )
                         setPreviewOpen(true)
                       }}
-                      className="group cursor-pointer rounded-[26px] border border-white/10 bg-white/5 p-4 backdrop-blur-xl"
+                      className="group cursor-pointer rounded-[26px] border border-white/10 bg-white/5 p-4 backdrop-blur-xl min-w-0"
                     >
-                      <div className="rounded-2xl overflow-hidden border border-white/10 h-56">
+                      <div className="rounded-2xl overflow-hidden border border-white/10 h-44 sm:h-56">
                         <img
                           src={item.image_url}
+                          alt={item.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                         />
                       </div>
@@ -321,7 +322,7 @@ export default function PortfolioShowcase() {
             {/* TECH STACK */}
 {activeTab === 'techstack' && (
   <div className="min-h-[360px] flex justify-center">
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 max-w-5xl w-full">
+    <div className="grid grid-cols-2 min-[375px]:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5 max-w-5xl w-full">
       {!loading &&
         techStacks?.map((item, index) => (
           <motion.div
@@ -344,7 +345,7 @@ export default function PortfolioShowcase() {
               y: -5,
               scale: 1.04,
             }}
-            className="group rounded-[24px] border border-white/10 bg-white/[0.04] backdrop-blur-xl flex flex-col items-center justify-center gap-3 h-[125px] w-[125px] mx-auto"
+            className="group rounded-[24px] border border-white/10 bg-white/[0.04] backdrop-blur-xl flex flex-col items-center justify-center gap-3 aspect-square w-full max-w-[125px] min-h-[112px] mx-auto"
           >
             <div className="relative flex items-center justify-center">
               {/* GLOW */}
@@ -354,10 +355,10 @@ export default function PortfolioShowcase() {
                 <img
                   src={item.logo_url}
                   alt={item.name}
-                  className="relative z-10 w-[56px] h-[56px] object-contain"
+                  className="relative z-10 w-12 h-12 sm:w-[56px] sm:h-[56px] object-contain"
                 />
               ) : (
-                <div className="relative z-10 w-[56px] h-[56px] rounded-2xl bg-white/10" />
+                <div className="relative z-10 w-12 h-12 sm:w-[56px] sm:h-[56px] rounded-2xl bg-white/10" />
               )}
             </div>
 

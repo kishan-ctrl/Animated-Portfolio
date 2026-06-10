@@ -64,7 +64,14 @@ export default function useComments() {
       let imageUrl: string | null = null
 
       if (image) {
-        imageUrl = await uploadCommentImageService(image)
+        try {
+          imageUrl = await uploadCommentImageService(image)
+        } catch (err) {
+          console.warn(
+            'Comment image upload failed. Saving comment without image.',
+            err
+          )
+        }
       }
 
       const newComment = await createCommentService({

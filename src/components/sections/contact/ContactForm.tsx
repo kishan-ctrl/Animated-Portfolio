@@ -8,13 +8,15 @@ import {
   MessageSquare,
   ArrowUpRight,
 } from 'lucide-react'
+import { useState } from 'react'
+import Swal from 'sweetalert2'
 
 import {
   FaLinkedinIn,
   FaInstagram,
   FaGithub,
   FaYoutube,
-  FaTiktok,
+  FaMedium,
 } from 'react-icons/fa'
 
 const smoothEase: [number, number, number, number] = [
@@ -44,29 +46,86 @@ const socialLinks = [
     title: 'Instagram',
     user: '@instagram',
     icon: FaInstagram,
-    link: 'https://www.instagram.com/itsmeikky_12?igsh=ZHFpMTJ1bHQzeDAx',
+    link: 'https://www.instagram.com/ki__shann/',
   },
   {
     title: 'Youtube',
     user: '@youtube',
     icon: FaYoutube,
-    link: 'https://youtube.com/@zettaajah?si=QRjJGD4zCQG8aIHX',
+    link: 'https://www.youtube.com/@kishanshan5791',
   },
   {
     title: 'Github',
     user: '@github',
     icon: FaGithub,
-    link: 'https://github.com/RifqiMuhammadAliya12',
+    link: 'https://github.com/kishan-ctrl',
   },
   {
-    title: 'TikTok',
-    user: '@tiktok',
-    icon: FaTiktok,
-    link: 'https://www.tiktok.com/@itsme.ikky_?_r=1&_t=ZS-95yAYr5PHUb',
+    title: 'Medium',
+    user: '@medium',
+    icon: FaMedium,
+    link: 'https://medium.com/@krishanshanshan1',
   },
 ]
 
 export default function ContactForm() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const handleSendMessage = async () => {
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Missing Information',
+        text: 'Please fill in all fields',
+      })
+      return
+    }
+
+    setLoading(true)
+
+    try {
+      const response = await fetch('/api/contact/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+        }),
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to send message')
+      }
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Message Sent!',
+        text: 'Thank you for reaching out. I will get back to you soon!',
+      })
+
+      // Reset form
+      setName('')
+      setEmail('')
+      setMessage('')
+    } catch (error: any) {
+      console.error('Send error:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.message || 'Failed to send message. Please try again.',
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -40 }}
@@ -84,7 +143,7 @@ export default function ContactForm() {
         transition={{ delay: 0.05 }}
       >
         <h2 className="text-2xl md:text-3xl font-bold mb-3">
-          Hubungi Saya
+          Contact Me... 
         </h2>
 
         <p className="text-sm text-white/50 mb-7">
@@ -107,8 +166,12 @@ export default function ContactForm() {
             <User className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
 
             <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder="Your Name"
-              className="w-full rounded-2xl border border-white/15 bg-black/20 pl-12 pr-4 py-4 outline-none transition duration-200 focus:border-white focus:ring-1 focus:ring-white/40"
+              disabled={loading}
+              className="w-full rounded-2xl border border-white/15 bg-black/20 pl-12 pr-4 py-4 outline-none transition duration-200 focus:border-white focus:ring-1 focus:ring-white/40 disabled:opacity-50"
             />
           </div>
         </motion.div>
@@ -125,8 +188,12 @@ export default function ContactForm() {
             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
 
             <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Your Email"
-              className="w-full rounded-2xl border border-white/15 bg-black/20 pl-12 pr-4 py-4 outline-none transition duration-200 focus:border-white focus:ring-1 focus:ring-white/40"
+              disabled={loading}
+              className="w-full rounded-2xl border border-white/15 bg-black/20 pl-12 pr-4 py-4 outline-none transition duration-200 focus:border-white focus:ring-1 focus:ring-white/40 disabled:opacity-50"
             />
           </div>
         </motion.div>
@@ -144,8 +211,11 @@ export default function ContactForm() {
 
             <textarea
               rows={5}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               placeholder="Your Message"
-              className="w-full rounded-2xl border border-white/15 bg-black/20 pl-12 pr-4 py-4 outline-none resize-none transition duration-200 focus:border-white focus:ring-1 focus:ring-white/40"
+              disabled={loading}
+              className="w-full rounded-2xl border border-white/15 bg-black/20 pl-12 pr-4 py-4 outline-none resize-none transition duration-200 focus:border-white focus:ring-1 focus:ring-white/40 disabled:opacity-50"
             />
           </div>
         </motion.div>
@@ -162,10 +232,12 @@ export default function ContactForm() {
             transition: { duration: 0.12 },
           }}
           whileTap={{ scale: 0.97 }}
-          className="w-full rounded-2xl py-4 bg-white/10 border border-white/10 flex items-center justify-center gap-2"
+          onClick={handleSendMessage}
+          disabled={loading}
+          className="w-full rounded-2xl py-4 bg-white/10 border border-white/10 flex items-center justify-center gap-2 disabled:opacity-50 transition-all"
         >
           <Send size={16} />
-          Send Message
+          {loading ? 'Sending...' : 'Send Message'}
         </motion.button>
       </div>
 
@@ -184,7 +256,7 @@ export default function ContactForm() {
 
         {/* LINKEDIN */} 
         <motion.a
-          href="https://www.linkedin.com/in/rifqimuhammadaliya/"  
+          href="https://www.linkedin.com/in/krishanth-shan-22aa972a1/"  
           target="_blank"
           rel="noopener noreferrer"
           variants={fieldVariants}

@@ -130,6 +130,52 @@ FOR SELECT
 USING (true);
 
 -- ========================================
+-- STORAGE BUCKET: comment images
+-- ========================================
+
+INSERT INTO storage.buckets (
+    id,
+    name,
+    public,
+    file_size_limit,
+    allowed_mime_types
+)
+VALUES (
+    'comments',
+    'comments',
+    true,
+    5242880,
+    ARRAY[
+        'image/jpeg',
+        'image/png',
+        'image/webp',
+        'image/gif'
+    ]
+)
+ON CONFLICT (id) DO UPDATE SET
+    public = EXCLUDED.public,
+    file_size_limit = EXCLUDED.file_size_limit,
+    allowed_mime_types = EXCLUDED.allowed_mime_types;
+
+DROP POLICY IF EXISTS "Allow public read comment images"
+ON storage.objects;
+
+CREATE POLICY "Allow public read comment images"
+ON storage.objects
+FOR SELECT
+TO anon, authenticated
+USING (bucket_id = 'comments');
+
+DROP POLICY IF EXISTS "Allow public upload comment images"
+ON storage.objects;
+
+CREATE POLICY "Allow public upload comment images"
+ON storage.objects
+FOR INSERT
+TO anon, authenticated
+WITH CHECK (bucket_id = 'comments');
+
+-- ========================================
 -- UPDATED_AT TRIGGER
 -- ========================================
 

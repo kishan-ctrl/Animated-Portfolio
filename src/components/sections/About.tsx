@@ -126,17 +126,18 @@ export default function About() {
         minHeight: "100vh",
         display: "flex",
         alignItems: "flex-start",
-        padding: isMobile ? "60px 24px 30px" : "80px 60px 30px 120px",
+        padding: isMobile ? "96px 16px 48px" : "80px 60px 30px 120px",
+        overflowX: "hidden",
       }}
     >
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "100%", minWidth: 0 }}>
         <div
           style={{
             display: "flex",
             flexDirection: isMobile ? "column" : "row",
-            alignItems: "center",
+            alignItems: isMobile ? "stretch" : "center",
             justifyContent: "space-between",
-            gap: "32px",
+            gap: isMobile ? "24px" : "32px",
           }}
         >
           {/* LEFT */}
@@ -148,6 +149,7 @@ export default function About() {
             style={{
               maxWidth: "600px",
               width: "100%",
+              minWidth: 0,
             }}
           >
             <motion.div variants={fadeUp} style={{ marginBottom: 16 }}>
@@ -166,15 +168,15 @@ export default function About() {
             <motion.div variants={fadeUp}>
               <div
                 style={{
-                  fontSize: isMobile ? 32 : "clamp(32px,5vw,46px)",
+                  fontSize: isMobile ? "clamp(30px, 11vw, 36px)" : "clamp(32px,5vw,46px)",
                   fontWeight: 800,
                   lineHeight: 1.03,
                   color: "var(--text-primary)",
+                  overflowWrap: "anywhere",
                 }}
               >
-                <div>Rifqi</div>
-                <div>Muhammad</div>
-                <div>Aliya</div>
+                <div>Balakrishnan</div>
+                <div>Krishanth</div>
               </div>
             </motion.div>
 
@@ -196,12 +198,12 @@ export default function About() {
                 color: "var(--text-secondary)",
                 lineHeight: 1.75,
                 maxWidth: isMobile ? "100%" : "490px",
+                overflowWrap: "break-word",
               }}
             >
-              Fresh Graduate SMK Rekayasa Perangkat Lunak lulusan 2026 dengan
-              passion di bidang frontend development dan UI modern. Berfokus
-              pada pembuatan website clean, responsif, dan visual yang kuat
-              untuk menghadirkan pengalaman digital yang optimal.
+               I'm an enthusiastic and passionate software developer, currently pursuing my studies at KIU University, Sri Lanka.
+               I love building innovative and meaningful projects using technologies like Java, Spring Boot, Angular, React, and MySQL.
+               Currently working on projects in Web Development, Machine learning, and Nural Networks.I enjoy collaborating on projects, solving real-world problems, and sharing knowledge with others.Let's connect and grow together!
             </motion.p>
 
             {/* QUOTE */}
@@ -226,11 +228,12 @@ export default function About() {
                 fontSize: 12,
                 fontStyle: "italic",
                 display: "inline-block",
-                width: "fit-content",
+                width: isMobile ? "100%" : "fit-content",
+                maxWidth: "100%",
+                boxSizing: "border-box",
               }}
             >
-              “Turning ideas into clean, modern, and meaningful digital
-              experiences.”
+              “Building dreams, one component at a time”
             </motion.div>
 
             {/* BUTTONS */}
@@ -245,10 +248,13 @@ export default function About() {
             >
               {/* DOWNLOAD CV */}
               <a
-                href="https://drive.google.com/file/d/1cFqZ0TY0U0I51K0Tchv8E4sbOv5yAZ9x/view?usp=drive_link"
+                href="https://drive.google.com/file/d/1yHyWlHcznWM7nsQa9tchJHGFVpkPTkqA/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ textDecoration: "none" }}
+                style={{
+                  textDecoration: "none",
+                  width: isMobile ? "100%" : "auto",
+                }}
               >
                 <button
                   style={{
@@ -256,6 +262,9 @@ export default function About() {
                     alignItems: "center",
                     gap: 6,
                     padding: "10px 18px",
+                    width: isMobile ? "100%" : "auto",
+                    minHeight: 44,
+                    justifyContent: "center",
                     borderRadius: 8,
                     border: "1px solid white",
                     background: "white",
@@ -288,6 +297,9 @@ export default function About() {
                   alignItems: "center",
                   gap: 6,
                   padding: "10px 18px",
+                  width: isMobile ? "100%" : "auto",
+                  minHeight: 44,
+                  justifyContent: "center",
                   borderRadius: 8,
                   border: "1px solid white",
                   background: "transparent",
@@ -314,40 +326,39 @@ export default function About() {
           </motion.div>
 
           {/* IMAGE */}
-          {!isMobile && (
-            <motion.div
-              variants={slideLeft}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: false }}
+          <motion.div
+            variants={slideLeft}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false }}
+            style={{
+              width: isMobile ? "100%" : "48%",
+              display: "flex",
+              justifyContent: isMobile ? "center" : "flex-end",
+            }}
+          >
+            <div
               style={{
-                width: "48%",
-                display: "flex",
-                justifyContent: "flex-end",
+                padding: isMobile ? 10 : 12,
+                borderRadius: "50%",
+                border: "1px solid var(--border)",
+                transform: isMobile ? "none" : "translateX(-80px)",
+                maxWidth: "100%",
               }}
             >
-              <div
+              <img
+                src="/assets/PP.png"
+                alt="Profile"
                 style={{
-                  padding: 12,
+                  width: isMobile ? "min(58vw, 190px)" : 240,
+                  height: isMobile ? "min(58vw, 190px)" : 240,
                   borderRadius: "50%",
-                  border: "1px solid var(--border)",
-                  transform: "translateX(-80px)",
+                  objectFit: "cover",
+                  display: "block",
                 }}
-              >
-                <img
-                  src="/assets/PP.png"
-                  alt="Profile"
-                  style={{
-                    width: 240,
-                    height: 240,
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    display: "block",
-                  }}
-                />
-              </div>
-            </motion.div>
-          )}
+              />
+            </div>
+          </motion.div>
         </div>
 
         {/* CARDS */}
@@ -361,6 +372,7 @@ export default function About() {
             gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
             gap: 18,
             marginTop: 36,
+            width: "100%",
           }}
         >
           {stats.map((item, i) => (
@@ -375,6 +387,7 @@ export default function About() {
                 border: "1px solid var(--border)",
                 background: "var(--bg-card)",
                 cursor: "pointer",
+                minWidth: 0,
               }}
             >
               <div
